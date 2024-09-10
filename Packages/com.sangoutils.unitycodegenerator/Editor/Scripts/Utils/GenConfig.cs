@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SangoUtils.UnityCodeGenerator.Utils
 {
-    internal static class Config
+    internal static class GenConfig
     {
         public static string RootPath { get => Path.Combine(Application.dataPath, "Generateds"); }
 

@@ -7,12 +7,12 @@ using UnityEngine;
 
 namespace SangoUtils.HTCViveTrackerHelpers
 {
+    /// <summary>
+    /// HTC is right hand coordinate, Unity is left hand.
+    /// Pose Matrix:[-x,y,z,rx,-ry,-rz,rw]
+    /// </summary>
     public class TrackerDataReceiver : MonoBehaviour
-    {
-        /// <summary>
-        /// HTC is right hand coordinate, Unity is left hand.
-        /// Pose Matrix:[-x,y,z,rx,-ry,-rz,rw]
-        /// </summary>
+    {        
         internal enum TrackerDataIPTypeCode
         {
             AnyIP = 0, TargetIP = 1
@@ -52,9 +52,13 @@ namespace SangoUtils.HTCViveTrackerHelpers
         private (Vector3, Quaternion) _trackerPose;
 
         private Queue<(Vector3, Quaternion)> _trackerDataQueue = new Queue<(Vector3, Quaternion)>();
-
+        /// <summary>
+        /// If this receiver has new data.
+        /// </summary>
         public bool IsRunning { get; private set; } = false;
-
+        /// <summary>
+        /// Share the data of Tracker position and rotation, which coordinate has been convert.
+        /// </summary>
         public Action<Vector3, Quaternion> OnTrackerDataUpdate;
 
         private void Awake()
@@ -172,6 +176,9 @@ namespace SangoUtils.HTCViveTrackerHelpers
             }
         }
 
+        /// <summary>
+        /// You can reset late frame any time.
+        /// </summary>
         internal void ResetLateFrames()
         {
             Debug.Log("[Sango] You have reset the LateFrames.");

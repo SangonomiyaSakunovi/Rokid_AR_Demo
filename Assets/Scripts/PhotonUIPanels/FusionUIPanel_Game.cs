@@ -1,6 +1,7 @@
-﻿using SceneGameObjects;
-using Photons;
+﻿using Photons;
 using SangoUtils.PhotonFusionHelpers.FusionCommons;
+using SangoUtils.UnityDevelopToolKits.Loggers;
+using SceneGameObjects;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,8 @@ namespace PhotonUIPanels
         [SerializeField] protected Button _btn_item0;
         [SerializeField] protected Button _btn_item1;
         [SerializeField] protected Button _btn_item2;
+
+        private int _index = 0;
 
         private void OnEnable()
         {
@@ -33,22 +36,24 @@ namespace PhotonUIPanels
         {
             if (name == _btn_playtest.name)
             {
-                //GameLogic.Instance.SetActiveObj<IEnvObjBehaviour>("GlassCube");
-                GameLogic.Instance.SetActiveObj<IEnvObjBehaviour>("Ghost_animation_Rokid");
+                //GameLogic.Instance.SetActiveObj<IEnvObjBehaviour>(ObjectManager.ObjEnvNames.GlassCube);
+                GameLogic.Instance.SetActiveObj<IEnvObjBehaviour>(ObjectManager.ObjEnvNames.Ghost_animation_Rokid);
             }
             else if (name == _btn_item0.name)
             {
                 Vector3 position = _btn_item0.transform.position;
                 Quaternion rotation = _btn_item0.transform.rotation;
-                GameLogic.Instance.InstantiateObjAsyc<IGrabableObjBehaviour>("StoneSphere", "Player0", position, rotation);
+                string id = ObjectManager.ObjPrefabNames.StoneSphere + _index;
+                GameLogic.Instance.InstantiateObjAsyc<IGrabableObjBehaviour>(ObjectManager.ObjPrefabNames.StoneSphere, id, position, rotation);
+                _index++;
             }
             else if (name == _btn_item1.name)
             {
-
+                UnityLogger.Warning("Under development, please stay tuned!");
             }
             else if (name == _btn_item2.name)
             {
-
+                UnityLogger.Warning("Under development, please stay tuned!");
             }
         }
     }

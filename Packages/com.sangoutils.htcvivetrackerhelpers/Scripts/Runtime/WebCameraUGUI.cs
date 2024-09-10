@@ -29,6 +29,9 @@ namespace SangoUtils.HTCViveTrackerHelpers
         [SerializeField] private int _cameraFPS = 30;
         [SerializeField] private int _cameraLateFrames = 0;
 
+        /// <summary>
+        /// Share Color32 data of the webCamera Pixs.
+        /// </summary>
         public Action<Color32[]> OnWebCamPixsUpdate;
 
         private WebCamTexture _webCamTexRaw;
@@ -153,6 +156,9 @@ namespace SangoUtils.HTCViveTrackerHelpers
             }
         }
 
+        /// <summary>
+        /// You can reset the late frames any time.
+        /// </summary>
         internal void ResetLateFrames()
         {
             Debug.Log("[Sango] You have reset the LateFrames.");

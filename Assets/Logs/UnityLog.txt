@@ -1,5 +1,7 @@
-[Log] # 06:34:03--655 ThreadID:1 >> Game Start.
-[Log] # 06:34:05--564 ThreadID:1 >> Connecting to Fusion, please wait.
-[Log] # 06:34:07--435 ThreadID:1 >> Server Connected!
-[Log] # 06:34:12--832 ThreadID:1 >> OnGrabStart
-[Log] # 06:34:14--143 ThreadID:1 >> OnGrabEnd
+[Log] # 02:38:14--376 ThreadID:1 >> Game Start.
+[Log] # 02:38:19--291 ThreadID:1 >> Connecting to Fusion, please wait.
+[Log] # 02:38:21--222 ThreadID:1 >> Server Connected!
+[Log] # 02:38:25--278 ThreadID:1 >> OnGrabStart
+[Log] # 02:38:26--054 ThreadID:1 >> OnGrabEnd
+[Warning] # 02:38:26--731 ThreadID:1 >> Under development, please stay tuned!
+[Warning] # 02:38:29--129 ThreadID:1 >> Under development, please stay tuned!

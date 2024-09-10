@@ -24,12 +24,12 @@ namespace SangoUtils.UnityCodeGenerator.TagGens
 
         private static void CreateSourceFile(IEnumerable<string> tags, IReadOnlyDictionary<int, string> layers)
         {
-            var currentDirectory = Path.GetDirectoryName(Config.GetCallerPath());
+            var currentDirectory = Path.GetDirectoryName(GenConfig.GetCallerPath());
 
             if (string.IsNullOrEmpty(currentDirectory))
                 throw new Exception("Can't get parent directory of caller path");
 
-            var generatedDirectoryPath = Path.Combine(Config.RootPath, FolderName);
+            var generatedDirectoryPath = Path.Combine(GenConfig.RootPath, FolderName);
             var templateText = File.ReadAllText(Path.Combine(currentDirectory, TemplatePath));
 
             var compiledTags = new StringBuilder();

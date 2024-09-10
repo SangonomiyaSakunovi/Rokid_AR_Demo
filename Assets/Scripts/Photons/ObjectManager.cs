@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace Photons
 {
-    internal class ObjectManager : NetworkBehaviour
+    internal partial class ObjectManager : NetworkBehaviour
     {
-        [SerializeField] private Transform _npcParentTrans;
+        [SerializeField] private GameObject _objEnvsParent;
+        [SerializeField] private GameObject _objNpcsParent; 
 
         [SerializeField] private GameObject[] _objPrefabs;
-        [SerializeField] private GameObject[] _objEnvs;
 
         private Dictionary<string, GameObject> PrefabsDict { get; } = new();
         [Networked] private NetworkDictionary<string, GrabableObjectBehaviour> GrabableObjectBehavioursDict => default;
@@ -21,12 +21,13 @@ namespace Photons
             foreach (var item0 in _objPrefabs)
                 PrefabsDict.Add(item0.name, item0);
 
-            foreach (var item1 in _objEnvs)
+            for (int i = 0; i < _objEnvsParent.transform.childCount; i++)
             {
-                if (item1.TryGetComponent<EnvObjectBehaviour>(out var behaviour))
+                var item = _objEnvsParent.transform.GetChild(i);
+                if (item.TryGetComponent<EnvObjectBehaviour>(out var behaviour))
                 {
-                    behaviour.ObjectID = item1.name;
-                    behaviour.GameObject = item1.gameObject;
+                    behaviour.ObjectID = item.name;
+                    behaviour.GameObject = item.gameObject;
                     EnvObjectBehavioursDict.Add(behaviour.ObjectID, behaviour);
 
                     if (behaviour.IsHideDefault)
@@ -66,7 +67,7 @@ namespace Photons
                     NetworkObject networkObj = Runner.Spawn(obj, position, rotation);
                     if (networkObj.TryGetComponent<GrabableObjectBehaviour>(out var behaviour))
                     {
-                        networkObj.transform.SetParent(_npcParentTrans);
+                        networkObj.transform.SetParent(_objNpcsParent.transform);
                         behaviour.ObjectID = ID;
                         behaviour.GameObject = networkObj.gameObject;
                         GrabableObjectBehavioursDict.Add(behaviour.ObjectID, behaviour);

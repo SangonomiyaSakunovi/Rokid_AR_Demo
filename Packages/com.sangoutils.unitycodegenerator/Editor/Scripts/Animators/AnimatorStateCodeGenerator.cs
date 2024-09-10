@@ -23,13 +23,8 @@ namespace SangoUtils.UnityCodeGenerator.AnimatorGens
         {
             var codeWriter = new CodeWriter();
 
-            var currentDirectory = Path.GetDirectoryName(Config.GetCallerPath());
-            var fileName = animator.name;
-
-            if (string.IsNullOrEmpty(currentDirectory))
-                throw new Exception("Can't get parent directory of caller path");
-
-            var generatedDirectoryPath = Path.Combine(Config.RootPath, FolderName);
+            var currentDirectory = Path.GetDirectoryName(GenConfig.GetCallerPath());
+            var generatedDirectoryPath = Path.Combine(GenConfig.RootPath, FolderName);
 
             var typeNameSourceText = "partial class " + animator.name;
 

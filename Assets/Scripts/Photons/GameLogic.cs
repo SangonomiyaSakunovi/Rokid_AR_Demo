@@ -9,9 +9,14 @@ namespace Photons
     {
         [SerializeField] private NetworkPrefabRef playerPrefab;
         [SerializeField] private Transform _spawnPoint;
+        [SerializeField] private GameObject _objPlayersParent;
 
         [field: SerializeField] private ObjectManager ObjectManager { get; set; }
 
+        /// <summary>
+        /// This dict should carry by GameLogic, but not ObjectManager.
+        /// Because some important instance will store in Player.
+        /// </summary>
         [Networked, Capacity(6)] private NetworkDictionary<PlayerRef, Player> Players => default;
 
         public static GameLogic Instance
@@ -48,22 +53,20 @@ namespace Photons
 
         public void PlayerJoined(PlayerRef player)
         {
+            //Only the host care about who join this game.
             if (HasStateAuthority)
             {
                 GetSpawnPoint(Pose.identity, out Vector3 position, out Quaternion rotation);
 
                 NetworkObject playerObj = Runner.Spawn(playerPrefab, position, rotation, player);
-                playerObj.transform.SetParent(_spawnPoint.transform);
+                playerObj.transform.SetParent(_objPlayersParent.transform);
                 Players.Add(player, playerObj.GetComponent<Player>());
-            }
-            else
-            {
-                UnityLogger.Warning("No Authority!");
             }
         }
 
         public void PlayerLeft(PlayerRef player)
         {
+            //Also only the host care about who left this game.
             if (!HasStateAuthority)
                 return;
 

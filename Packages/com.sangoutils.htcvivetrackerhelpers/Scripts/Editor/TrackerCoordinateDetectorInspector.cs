@@ -70,6 +70,7 @@ namespace SangoUtils.HTCViveTrackerHelpers
             EditorGUILayout.PropertyField(_originPrecisionPos);
             EditorGUILayout.PropertyField(_originPrecisionRotEular);
 
+            EditorGUILayout.LabelField("The following audio will be played on detecting update.");
             EditorGUILayout.PropertyField(_audioSource);
             EditorGUILayout.PropertyField(_audioClipIdle);
             EditorGUILayout.PropertyField(_audioClipPosDetecting);
@@ -77,6 +78,7 @@ namespace SangoUtils.HTCViveTrackerHelpers
             EditorGUILayout.PropertyField(_audioClipDetected);
             EditorGUILayout.Space();
 
+            EditorGUILayout.LabelField("You can customize your own prefer.");
             EditorGUILayout.PropertyField(_audioVolumMin);
             EditorGUILayout.PropertyField(_audioVolumMax);
             EditorGUILayout.PropertyField(_audioVolumDefault);
@@ -85,6 +87,7 @@ namespace SangoUtils.HTCViveTrackerHelpers
             EditorGUILayout.PropertyField(_audioPitchDefault);
             EditorGUILayout.Space();
 
+            EditorGUILayout.LabelField("If you custom your own behaviour, you can try this.");
             EditorGUILayout.PropertyField(_isCustomDetect);
             EditorGUILayout.PropertyField(_onDetectedEvt);
 

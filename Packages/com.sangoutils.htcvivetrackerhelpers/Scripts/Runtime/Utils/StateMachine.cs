@@ -13,6 +13,9 @@ namespace SangoUtils.HTCViveTrackerHelpers
         public abstract void Exit();
     }
 
+    /// <summary>
+    /// A small statemachine, only use for this package.
+    /// </summary>
     internal abstract class StateMachine
     {
         protected Dictionary<string, object> BlackBoard = new();
@@ -21,6 +24,7 @@ namespace SangoUtils.HTCViveTrackerHelpers
         private IState _currentState;
 
         public IState State => _currentState;
+
         public void Enter<T>() where T : IState => Enter(typeof(T));
         public void Remove<T>() where T : IState => Remove(typeof(T));
 

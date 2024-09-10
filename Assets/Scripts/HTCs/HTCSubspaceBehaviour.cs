@@ -68,6 +68,10 @@ namespace SangoProjects.HTCBehaviours
             RPC_RequestToTower(Runner.UserId, SubspaceParentTrans.position, SubspaceParentTrans.rotation, wirstSlamPose.position, wirstSlamPose.rotation);
         }
 
+        /// <summary>
+        /// To get pose in mapB
+        /// If you do not know why, we suggest you`d better not modify it.
+        /// </summary>
         private (Vector3, Quaternion) GetPoseInMapB(Vector3 positionInMapA, Quaternion rotationInMapA, Pose poseInMapA, Pose poseInMapB)
         {
             //Vector3 positionInMapB = transformB.position + transformB.rotation * (transformA.InverseTransformPoint(positionInMapA) - transformA.position);
@@ -76,6 +80,10 @@ namespace SangoProjects.HTCBehaviours
             Quaternion rotationInMapB = poseInMapB.rotation * Quaternion.Inverse(poseInMapA.rotation) * rotationInMapA;
             return (positionInMapB, rotationInMapB);
         }
+        /// <summary>
+        /// To get pose in mapB
+        /// If you do not know why, we suggest you`d better not modify it.
+        /// </summary>
         private (Vector3, Quaternion) GetPoseInMapB(Vector3 positionInMapA, Quaternion rotationInMapA,
             Vector3 trackerPosInMapA, Quaternion trackerRotInMapA,
             Vector3 trackerPosInMapB, Quaternion trackerRotInMapB)
