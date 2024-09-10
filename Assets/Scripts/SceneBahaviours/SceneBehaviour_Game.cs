@@ -21,13 +21,11 @@ namespace SceneBehaviours
             if (_config.GameDeviceType == GameCongifs.GameDeviceType.PhysicsCameraComposition)
             {
                 _physicCameraParent.SetActive(true);
-                _subspaceVisualParent.SetActive(true);
-                _subspaceRefVisualParent.SetActive(true);
             }
             else if (_config.GameDeviceType == GameCongifs.GameDeviceType.RokidAR
                 || _config.GameDeviceType == GameCongifs.GameDeviceType.RuntimeDebug)
             {
-                _subspaceRefVisualParent.SetActive(true);
+
             }
         }
 

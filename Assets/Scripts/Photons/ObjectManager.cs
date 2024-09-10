@@ -13,7 +13,6 @@ namespace Photons
         [SerializeField] private GameObject[] _objPrefabs;
 
         private Dictionary<string, GameObject> PrefabsDict { get; } = new();
-        [Networked] private NetworkDictionary<string, GrabableObjectBehaviour> GrabableObjectBehavioursDict => default;
         private Dictionary<string, EnvObjectBehaviour> EnvObjectBehavioursDict { get; } = new();
 
         public override void Spawned()
@@ -70,7 +69,6 @@ namespace Photons
                         networkObj.transform.SetParent(_objNpcsParent.transform);
                         behaviour.ObjectID = ID;
                         behaviour.GameObject = networkObj.gameObject;
-                        GrabableObjectBehavioursDict.Add(behaviour.ObjectID, behaviour);
                     }
                 }
             }

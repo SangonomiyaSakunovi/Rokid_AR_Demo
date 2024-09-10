@@ -18,7 +18,11 @@ namespace SangoUtils.PhotonFusionHelpers.FusionConnections
         }
 
         public string SessionName { get; private set; }
+        public bool IsVisible { get; private set; }
+        public bool EnableClientSessionCreation { get; private set; }
+        public MatchmakingMode MatchmakingMode { get; private set; }
         public int MaxPlayerCount { get; private set; }
+
         public string Region { get; private set; }
         public string AppVersion { get; private set; }
         public List<string> Usernames { get; private set; }
@@ -54,8 +58,12 @@ namespace SangoUtils.PhotonFusionHelpers.FusionConnections
             // Solve StartGameArgs
             var args = new StartGameArgs();
             args.CustomPhotonAppSettings = appSettings;
-            args.GameMode = ResolveGameMode(connectArgs);
+            args.GameMode = connectArgs.GameMode;
+
             args.SessionName = SessionName = connectArgs.Session;
+            args.IsVisible = IsVisible = connectArgs.IsVisible;
+            args.EnableClientSessionCreation = EnableClientSessionCreation = connectArgs.EnableClientSessionCreation;
+            args.MatchmakingMode = MatchmakingMode = connectArgs.MatchmakingMode;
             args.PlayerCount = MaxPlayerCount = connectArgs.MaxPlayerCount;
 
             // Scene info
@@ -110,25 +118,6 @@ namespace SangoUtils.PhotonFusionHelpers.FusionConnections
         public void SetSessionUsernames(List<string> usernames)
         {
             Usernames = usernames;
-        }
-
-        private GameMode ResolveGameMode(IFusionConnectArgs args)
-        {
-            bool isSharedSession = args.Scene.SceneName.Contains("Shared");
-            if (args.Creating)
-            {
-                // Create session
-                return isSharedSession ? GameMode.Shared : GameMode.Host;
-            }
-
-            if (string.IsNullOrEmpty(args.Session))
-            {
-                // QuickJoin
-                return isSharedSession ? GameMode.Shared : GameMode.AutoHostOrClient;
-            }
-
-            // Join session
-            return isSharedSession ? GameMode.Shared : GameMode.Client;
         }
 
         private ShutdownReason ResolveShutdownReason(int reason)

@@ -3,6 +3,7 @@ using Fusion.Sockets;
 using SangoUtils.UnityDevelopToolKits.Loggers;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Photons
 {
@@ -46,12 +47,13 @@ namespace Photons
 
         public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList) 
         {
-            UnityLogger.Warning("###########");
-            foreach(var sessionInfo in sessionList)
+            Debug.Log("###########");
+            Debug.Log($"Session List Updated with {sessionList.Count} session(s)");
+            foreach (var sessionInfo in sessionList)
             {
-                UnityLogger.Log(sessionInfo.Name);
+                Debug.Log(sessionInfo.Name);
             }
-            UnityLogger.Warning("###########");
+            Debug.Log("###########");
         }
 
         public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }

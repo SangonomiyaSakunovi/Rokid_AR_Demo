@@ -32,11 +32,8 @@ namespace SceneGameObjects
         [Rpc(RpcSources.All, RpcTargets.All)]
         private void RPC_SyncGrabPose(string id, Vector3 position, Quaternion rotation)
         {
-            if (!id.Equals(Runner.UserId))
-            {
-                transform.localPosition = position;
-                transform.localRotation = rotation;
-            }
+            transform.localPosition = position;
+            transform.localRotation = rotation;
         }
     }
 }

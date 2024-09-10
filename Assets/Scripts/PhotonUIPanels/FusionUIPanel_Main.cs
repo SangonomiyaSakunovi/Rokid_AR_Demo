@@ -74,8 +74,6 @@ namespace PhotonUIPanels
         {
             UnityLogger.Color(LoggerColor.Cyan, "Connecting to Fusion, please wait.");
 
-            ConnectionArgs.Session = null;
-            ConnectionArgs.Creating = false;
             ConnectionArgs.Region = ConnectionArgs.PreferredRegion;
 
             UIManager.Show<FusionUIPanel_Loading>();

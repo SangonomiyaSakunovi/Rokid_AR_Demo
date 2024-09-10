@@ -61,6 +61,8 @@ namespace Photons
                 NetworkObject playerObj = Runner.Spawn(playerPrefab, position, rotation, player);
                 playerObj.transform.SetParent(_objPlayersParent.transform);
                 Players.Add(player, playerObj.GetComponent<Player>());
+
+                UnityLogger.Color(LoggerColor.Purple, Runner.SessionInfo.ToString());
             }
         }
 
@@ -74,6 +76,9 @@ namespace Photons
             {
                 Players.Remove(player);
                 Runner.Despawn(behaviour.Object);
+
+                if (Players.Count == 0)
+                    Runner.SessionInfo.IsOpen = false;
             }
         }
 
@@ -91,6 +96,27 @@ namespace Photons
         public void SetActiveObj<T>(string name, bool isActive = true) where T : IObjBehaviour
         {
             ObjectManager.SetActiveObj<T>(name, isActive);
+        }
+
+        private void OnApplicationQuit()
+        {
+            if(!HasStateAuthority)
+                { return; }
+
+            //Change state authority hands
+            if (Players.Count > 0)
+            {
+                Object.ReleaseStateAuthority();
+                foreach (var player in Players)
+                {
+                    player.Value.Object.RequestStateAuthority();
+                    break;
+                }
+            }
+            else
+            {
+                Runner.SessionInfo.IsOpen = false;
+            }
         }
     }
 }

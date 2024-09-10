@@ -1,4 +1,5 @@
 ﻿using Fusion;
+using Fusion.Photon.Realtime;
 using SangoUtils.PhotonFusionHelpers.ScriptableObjects;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,16 @@ namespace SangoUtils.PhotonFusionHelpers.FusionCommons
     {
         public IFusionConnection Connection;
         public string SessionName => Connection.SessionName;
+        public bool IsVisible => Connection.IsVisible;
+        public bool EnableClientSessionCreation => Connection.EnableClientSessionCreation;
+        public MatchmakingMode MatchmakingMode => Connection.MatchmakingMode;
         public int MaxPlayerCount => Connection.MaxPlayerCount;
         public string Region => Connection.Region;
         public string AppVersion => Connection.AppVersion;
         public List<string> Usernames => Connection.Usernames;
         public bool IsConnected => Connection != null && Connection.IsConnected;
         public int Ping => Connection.Ping;
+
         public Action<IFusionConnectArgs> OnBeforeConnect;
         public Action<IFusionConnection, int> OnBeforeDisconnect;
 
@@ -95,6 +100,9 @@ namespace SangoUtils.PhotonFusionHelpers.FusionCommons
         /// The session that the client wants to join. Is not persisted. Use ReconnectionInformation instead to recover it between application shutdowns.
         /// </summary>
         public virtual string Session { get; set; }
+        public virtual bool IsVisible { get; set; }
+        public virtual bool EnableClientSessionCreation { get; set; }
+        public virtual MatchmakingMode MatchmakingMode { get; set; }
 
         /// <summary>
         /// The preferred region the user selected in the menu.
@@ -150,7 +158,7 @@ namespace SangoUtils.PhotonFusionHelpers.FusionCommons
         /// <summary>
         /// Toggle to create or join-only game sessions/rooms.
         /// </summary>
-        public virtual bool Creating { get; set; }
+        public virtual GameMode GameMode { get; set; }
 
         /// <summary>
         /// Partial method to expand defaults to SDK variations.
@@ -164,6 +172,8 @@ namespace SangoUtils.PhotonFusionHelpers.FusionCommons
         /// <param name="config">The menu config.</param>
         public virtual void SetDefaults(IFusionConnectConfig config)
         {
+            GameMode = config.GameMode;
+
             if (string.IsNullOrEmpty(config.SessionID))
             {
                 Session = null;
@@ -173,7 +183,9 @@ namespace SangoUtils.PhotonFusionHelpers.FusionCommons
                 Session = config.SessionID;
             }
 
-            Creating = false;
+            IsVisible = config.IsSessionVisible;
+            EnableClientSessionCreation = config.IsEnableClientCreateNewSession;
+            MatchmakingMode = config.SessionMatchmakingMode;
 
             if (string.IsNullOrEmpty(AppVersion))
             {
@@ -185,9 +197,9 @@ namespace SangoUtils.PhotonFusionHelpers.FusionCommons
                 PreferredRegion = string.Empty;
             }
 
-            if (MaxPlayerCount <= 0 || MaxPlayerCount > config.MaxPlayerCount)
+            if (MaxPlayerCount <= 0 || MaxPlayerCount > config.SessionMaxPlayerCount)
             {
-                MaxPlayerCount = config.MaxPlayerCount;
+                MaxPlayerCount = config.SessionMaxPlayerCount;
             }
 
             if (string.IsNullOrEmpty(Username))
@@ -236,6 +248,9 @@ namespace SangoUtils.PhotonFusionHelpers.FusionCommons
     public interface IFusionConnection
     {
         string SessionName { get; }
+        bool IsVisible { get; }
+        bool EnableClientSessionCreation { get; }
+        MatchmakingMode MatchmakingMode { get; }
         int MaxPlayerCount { get; }
         string Region { get; }
         string AppVersion { get; }
@@ -251,12 +266,15 @@ namespace SangoUtils.PhotonFusionHelpers.FusionCommons
     {
         string Username { get; set; }
         string Session { get; set; }
+        bool IsVisible { get; set; }
+        bool EnableClientSessionCreation { get; set; }
+        MatchmakingMode MatchmakingMode { get; set; }
         string PreferredRegion { get; set; }
         string Region { get; set; }
         string AppVersion { get; set; }
         int MaxPlayerCount { get; set; }
         FusionSceneInfo Scene { get; set; }
-        bool Creating { get; set; }
+        GameMode GameMode { get; set; }
         void SetDefaults(IFusionConnectConfig config);
     }
 
@@ -265,9 +283,13 @@ namespace SangoUtils.PhotonFusionHelpers.FusionCommons
         List<string> AvailableAppVersions { get; }
         List<string> AvailableRegions { get; }
         List<FusionSceneInfo> AvailableScenes { get; }
-        int MaxPlayerCount { get; }
+        int SessionMaxPlayerCount { get; }
         string MachineID { get; }
         string SessionID { get; }
+        bool IsSessionVisible { get; }
+        bool IsEnableClientCreateNewSession { get; }
+        MatchmakingMode SessionMatchmakingMode { get; }
+        GameMode GameMode { get; }
         FusionPartyCodeGenerator CodeGenerator { get; }
         bool AdaptFramerateForMobilePlatform { get; }
     }

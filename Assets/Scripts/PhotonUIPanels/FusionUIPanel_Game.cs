@@ -43,8 +43,8 @@ namespace PhotonUIPanels
             {
                 Vector3 position = _btn_item0.transform.position;
                 Quaternion rotation = _btn_item0.transform.rotation;
-                string id = ObjectManager.ObjPrefabNames.StoneSphere + _index;
-                GameLogic.Instance.InstantiateObjAsyc<IGrabableObjBehaviour>(ObjectManager.ObjPrefabNames.StoneSphere, id, position, rotation);
+                string objName = ObjectManager.ObjPrefabNames.StoneSphere;
+                GameLogic.Instance.InstantiateObjAsyc<IGrabableObjBehaviour>(objName, objName + _index, position, rotation);
                 _index++;
             }
             else if (name == _btn_item1.name)

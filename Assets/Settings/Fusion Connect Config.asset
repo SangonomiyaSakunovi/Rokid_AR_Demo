@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d384f66fe8ca16458dc825bc5cc8078, type: 3}
   m_Name: Fusion Connect Config
   m_EditorClassIdentifier: 
-  _maxPlayers: 6
-  _adaptFramerateForMobilePlatform: 1
   _availableAppVersions:
   - v0.1
   _availableRegions:
@@ -22,6 +20,12 @@ MonoBehaviour:
   - Name: SharedGame
     ScenePath: Assets/Scenes/SharedGame.unity
     Preview: {fileID: 0}
-  _machineID: {fileID: 11400000, guid: 04aac1e54b9d9634d8c760870b2396c9, type: 2}
+  _gameMode: 2
   _sessionID: {fileID: 11400000, guid: fe06487e54b89c14ba27695c3760d49e, type: 2}
+  _sessionMaxPlayers: 6
+  _isSessionVisible: 1
+  _isEnabaleClientCreateNewSession: 1
+  _sessionMatchmakingMode: 0
+  _machineID: {fileID: 11400000, guid: 04aac1e54b9d9634d8c760870b2396c9, type: 2}
+  _adaptFramerateForMobilePlatform: 1
   _codeGenerator: {fileID: 11400000, guid: f90e717b29763db4fb0149ae1bf7343b, type: 2}
