@@ -1,0 +1,16 @@
+{
+  "name": "com.sangoutils.enginesunity-rokiduxr",
+  "displayName": "SangoUtils Engines_Unity Rokid_UXR",
+  "version": "1.0.0",
+  "unity": "2020.3",
+  "author": "SangonomiyaSakunovi",
+  "description": "The Engines To Rokid_UXR in Unity.",
+  "keywords": [
+    "SangoUtils",
+    "EngineDrivers_Unity"
+  ],
+  "dependencies": {
+    "com.rokid.xr.unity": "2.4.6",
+    "com.rokid.xr.core": "1.23.3"
+  }
+}

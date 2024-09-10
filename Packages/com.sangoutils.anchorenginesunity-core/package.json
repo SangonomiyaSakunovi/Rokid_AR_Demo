@@ -1,0 +1,12 @@
+{
+  "name": "com.sangoutils.anchorenginesunity-core",
+  "displayName": "SangoUtils AnchorEngines_Unity Core",
+  "version": "1.0.0",
+  "unity": "2020.3",
+  "author": "SangonomiyaSakunovi",
+  "description": "The AnchorEngines To Auto-ReFocus Holography Sapace with Power of SangoCore in Unity.",
+  "keywords": [
+    "SangoUtils",
+    "AnchorEngines_Unity"
+  ]
+}

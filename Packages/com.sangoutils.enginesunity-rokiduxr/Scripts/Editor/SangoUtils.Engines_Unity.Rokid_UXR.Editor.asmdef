@@ -1,0 +1,20 @@
+{
+    "name": "SangoUtils.Engines_Unity.Rokid_UXR.Editor",
+    "rootNamespace": "SangoUtils.Engines_Unity.Rokid_UXR",
+    "references": [
+        "GUID:fe14bc9dd681249d19cf4ef377c7e29e",
+        "GUID:2f52f0b6cfdc94464bcc067a11c8e1b6",
+        "GUID:e8fe6dbdd4217d54daf2eed452ea63fb"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

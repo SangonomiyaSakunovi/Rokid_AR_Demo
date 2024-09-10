@@ -1,0 +1,12 @@
+{
+  "name": "com.sangoutils.htcvivetrackerhelpers",
+  "displayName": "SangoUtils HTC Vive Tracker Helpers",
+  "version": "1.0.0",
+  "unity": "2020.3",
+  "author": "SangonomiyaSakunovi",
+  "description": "The Helpers To help use HTC Vive Tracker in Unity.",
+  "keywords": [
+    "SangoUtils",
+    "HTC Vive Tracker"
+  ]
+}

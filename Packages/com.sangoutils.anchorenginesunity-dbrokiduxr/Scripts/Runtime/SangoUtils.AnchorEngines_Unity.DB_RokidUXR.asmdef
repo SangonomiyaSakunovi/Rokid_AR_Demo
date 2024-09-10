@@ -1,0 +1,19 @@
+{
+    "name": "SangoUtils.AnchorEngines_Unity.DB_RokidUXR",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:30434b57e58e70d46a8b1293849b62db",
+        "GUID:fe14bc9dd681249d19cf4ef377c7e29e",
+        "GUID:2f52f0b6cfdc94464bcc067a11c8e1b6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

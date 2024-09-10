@@ -1,0 +1,18 @@
+{
+  "name": "com.sangoutils.anchorenginesunity-dbrokiduxr",
+  "displayName": "SangoUtils AnchorEngines_Unity DataBinding Rokid_UXR",
+  "version": "1.0.0",
+  "unity": "2020.3",
+  "author": "SangonomiyaSakunovi",
+  "description": "The AnchorEngines DataBinding To Auto-ReFocus Holography Sapace with Power of Rokid_UXR in Unity.",
+  "keywords": [
+    "SangoUtils",
+    "AnchorEngines_Unity"
+  ],
+  "dependencies": {
+    "com.unity.textmeshpro": "3.0.6",
+    "com.rokid.xr.unity": "2.4.6",
+    "com.rokid.xr.core": "1.23.3",
+    "com.sangoutils.anchorenginesunity-core": "1.0.0"
+  }
+}

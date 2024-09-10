@@ -1,0 +1,151 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7167752301871121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8102843005885507163}
+  m_Layer: 0
+  m_Name: SangoSubspaceRootObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8102843005885507163
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7167752301871121}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7954484501436318189}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3118269645637097328
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7954484501436318189}
+  - component: {fileID: 9089415421266505993}
+  - component: {fileID: 3903028285399237002}
+  m_Layer: 0
+  m_Name: BaiduAI_LogoRecognitionsRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7954484501436318189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3118269645637097328}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4659589884958471070}
+  - {fileID: 8102843005885507163}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9089415421266505993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3118269645637097328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6433da8e9524f542af7f6f12fc69b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetLogoWidthRange: 50
+  _targetLogoHeightRange: 50
+  _targetLogoLocationOffsetRange: 150
+  _serverHost: https://192.168.0.43:52516/uploadTexture
+  _xPositiveLogoName: fos
+  _xNegativeLogoName: baidu_logo_1
+  _zPositiveLogoName: baidu_logo_2
+  _zNegativeLogoName: baidu_logo_3
+  _probabilityThreshold: 0.6
+  _updateSubspaceSpinRefocusTaskInterval: 1000
+  _updateSubspaceSpinRefocusTimeLimite: 300000
+  _onAutoRefocusLogoFound:
+    m_PersistentCalls:
+      m_Calls: []
+  _onAutoRefocusDone:
+    m_PersistentCalls:
+      m_Calls: []
+  _onAutoRefocusToManual:
+    m_PersistentCalls:
+      m_Calls: []
+  _recognitionLogoPrefabPathRoot: Prefabs/SubspaceSpins/
+  _recognitionLogoPrefabPathSuffix: Spin
+  _recognitionLogoPrefabOffsetZToViewCenterObject: 1
+  _viewCenterObject: {fileID: 0}
+  _subspaceSpinsRootObject: {fileID: 4451183260836871519}
+  _sangoSubspaceRootObject: {fileID: 7167752301871121}
+--- !u!114 &3903028285399237002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3118269645637097328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b863ed6670263f48aee3c656fccd07e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _logTxt: {fileID: 0}
+  _logMaxCount: 20
+--- !u!1 &4451183260836871519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4659589884958471070}
+  m_Layer: 0
+  m_Name: SubspaceSpinsRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4659589884958471070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4451183260836871519}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7954484501436318189}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

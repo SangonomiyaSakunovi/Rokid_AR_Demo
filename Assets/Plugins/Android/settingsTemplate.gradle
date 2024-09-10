@@ -1,0 +1,25 @@
+pluginManagement {
+    repositories {
+        **ARTIFACTORYREPOSITORY**
+        maven { url 'https://maven.rokid.com/repository/maven-public/' }
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
+include ':launcher', ':unityLibrary'
+**INCLUDES**
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        **ARTIFACTORYREPOSITORY**
+        maven { url 'https://maven.rokid.com/repository/maven-public/' }
+        google()
+        mavenCentral()
+        flatDir {
+            dirs "${project(':unityLibrary').projectDir}/libs"
+        }
+    }
+}
