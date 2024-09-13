@@ -1,6 +1,7 @@
 ﻿using Fusion;
 using Fusion.Sockets;
-using SangoUtils.UnityDevelopToolKits.Loggers;
+using PhotonUIPanels;
+using SangoUtils.PhotonFusionHelpers.FusionCommons;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,23 @@ namespace Photons
 {
     internal class InputManager : SimulationBehaviour, IBeforeUpdate, INetworkRunnerCallbacks
     {
-        public Player LocalPlayer { get; internal set; }
+        private Player _localPlayer;
+        private NetInput _accumulatedInput;
 
-        public void BeforeUpdate() { }
+        public Player LocalPlayer
+        {
+            get => _localPlayer;
+            internal set
+            {
+                _localPlayer = value;
+            }
+        }
+
+        public void BeforeUpdate()
+        {
+            if(_localPlayer == null)
+                return;
+        }
 
         public void OnConnectedToServer(NetworkRunner runner) { }
 
@@ -45,18 +60,16 @@ namespace Photons
 
         public void OnSceneLoadStart(NetworkRunner runner) { }
 
-        public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList) 
-        {
-            Debug.Log("###########");
-            Debug.Log($"Session List Updated with {sessionList.Count} session(s)");
-            foreach (var sessionInfo in sessionList)
-            {
-                Debug.Log(sessionInfo.Name);
-            }
-            Debug.Log("###########");
-        }
+        public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList) { }
 
-        public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
+        public async void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
+        {
+            if (shutdownReason == ShutdownReason.DisconnectedByPluginLogic)
+            {
+                await FindFirstObjectByType<FusionConnectionBehaviourBase>(FindObjectsInactive.Include).DisconnectAsync(ConnectFailReason.Disconnect);
+                FindFirstObjectByType<FusionUIPanel_Game>(FindObjectsInactive.Include).UIManager.Show<FusionUIPanel_Main>();
+            }
+        }
 
         public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message) { }
     }

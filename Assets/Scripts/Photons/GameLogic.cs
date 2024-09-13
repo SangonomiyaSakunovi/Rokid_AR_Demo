@@ -11,6 +11,10 @@ namespace Photons
         [SerializeField] private Transform _spawnPoint;
         [SerializeField] private GameObject _objPlayersParent;
 
+        [SerializeField] private int _peerIDPrefix;
+
+        private int _peerIDIndex = 0;
+
         [field: SerializeField] private ObjectManager ObjectManager { get; set; }
 
         /// <summary>
@@ -46,9 +50,7 @@ namespace Photons
 
         public override void FixedUpdateNetwork()
         {
-            if (Players.Count < 1)
-                return;
-
+            
         }
 
         public void PlayerJoined(PlayerRef player)
@@ -56,11 +58,26 @@ namespace Photons
             //Only the host care about who join this game.
             if (HasStateAuthority)
             {
+                string strIndex = "";
+                if (_peerIDIndex < 10)
+                    strIndex = "00" + _peerIDIndex;
+                else if (_peerIDIndex < 100)
+                    strIndex = "0" + _peerIDIndex;
+                else if (_peerIDIndex < 1000)
+                    strIndex = _peerIDIndex.ToString();
+                else
+                    UnityLogger.Error("[Sango] The index overflow in " + nameof(ObjectManager));
+
+                _peerIDIndex++;
+
                 GetSpawnPoint(Pose.identity, out Vector3 position, out Quaternion rotation);
 
                 NetworkObject playerObj = Runner.Spawn(playerPrefab, position, rotation, player);
                 playerObj.transform.SetParent(_objPlayersParent.transform);
-                Players.Add(player, playerObj.GetComponent<Player>());
+                var component = playerObj.GetComponent<Player>();
+                component.LocalPlayerRef = player;
+                component.PeerID = int.Parse(_peerIDPrefix + strIndex);
+                Players.Add(player, component);
 
                 UnityLogger.Color(LoggerColor.Purple, Runner.SessionInfo.ToString());
             }
@@ -88,14 +105,14 @@ namespace Photons
             rotation = pose.rotation * _spawnPoint.rotation;
         }
 
-        public void InstantiateObjAsyc<T>(string name, string ID, Vector3 position, Quaternion rotation) where T : IObjBehaviour
-        {
-            ObjectManager.InstantiateObjAsyc<T>(name, ID, position, rotation);
-        }
-
-        public void SetActiveObj<T>(string name, bool isActive = true) where T : IObjBehaviour
+        public void SetActiveObj<T>(int name, bool isActive = true) where T : IObjBehaviour
         {
             ObjectManager.SetActiveObj<T>(name, isActive);
+        }
+
+        public void SyncPose(int name, Vector3 position, Quaternion rotation)
+        {
+            ObjectManager.SyncPose(name, position, rotation);
         }
 
         private void OnApplicationQuit()

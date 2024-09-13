@@ -1,20 +1,24 @@
-﻿using Fusion;
+﻿using Photons;
 using SangoUtils.UnityDevelopToolKits.Loggers;
 using UnityEngine;
 
 namespace SceneGameObjects
 {
-    internal class GrabableObjectBehaviour : NetworkBehaviour, IGrabableObjBehaviour
+    internal class GrabableObjectBehaviour : MonoBehaviour, IGrabableObjBehaviour
     {
-        public string ObjectID { get; set; }
+        public int ObjectID { get; set; }
         public GameObject GameObject { get; set; }
+
+        [field: SerializeField] public bool IsHideDefault { get; set; }
 
         private bool _isGrabUpdate = false;
 
-        public override void FixedUpdateNetwork()
+        private void FixedUpdate()
         {
             if (_isGrabUpdate)
-                RPC_SyncGrabPose(Runner.UserId, transform.localPosition, transform.localRotation);
+            {
+                GameLogic.Instance.SyncPose(ObjectID, transform.localPosition, transform.localRotation);
+            }
         }
 
         public void OnGrabStart()
@@ -29,8 +33,7 @@ namespace SceneGameObjects
             UnityLogger.Color(LoggerColor.Orange, "OnGrabEnd");
         }
 
-        [Rpc(RpcSources.All, RpcTargets.All)]
-        private void RPC_SyncGrabPose(string id, Vector3 position, Quaternion rotation)
+        public void SyncPose(Vector3 position, Quaternion rotation)
         {
             transform.localPosition = position;
             transform.localRotation = rotation;

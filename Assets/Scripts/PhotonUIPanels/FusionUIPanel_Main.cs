@@ -97,7 +97,8 @@ namespace PhotonUIPanels
                 {
                     UnityLogger.Color(LoggerColor.Green, "Server Connected!");
 
-                    manager.Show<FusionUIPanel_Game>();
+                    //manager.Show<FusionUIPanel_Game>();
+                    FusionUIPanelManager.Instance.HideCanvas();
                 }
                 else if (result.FailReason != ConnectFailReason.ApplicationQuit)
                 {

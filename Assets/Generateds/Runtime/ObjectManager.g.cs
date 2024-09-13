@@ -6,15 +6,9 @@
  {
      partial class ObjectManager
      {
-         public class ObjEnvNames
+         public class ObjGrabableNames
          {
-             public const string GlassCube = "GlassCube";
-             public const string Ghost_animation_Rokid = "Ghost_animation_Rokid";
-         }
-
-         public class ObjPrefabNames
-         {
-             public const string StoneSphere = "StoneSphere";
+             public const int Ghost_animation_Rokid = 1001000;
          }
      }
  }

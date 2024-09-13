@@ -289,6 +289,7 @@ MonoBehaviour:
   - {fileID: 1667443799}
   - {fileID: 1886225716}
   - {fileID: 649513667}
+  _canvasRoot: {fileID: 1438674547}
 --- !u!4 &547728741
 Transform:
   m_ObjectHideFlags: 0
@@ -711,6 +712,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIPanels
       objectReference: {fileID: 0}
+    - target: {fileID: 3922792804955657446, guid: ec4329a98f62f814795f4baf14b2fe39,
+        type: 3}
+      propertyPath: _isModal
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922792804955657446, guid: ec4329a98f62f814795f4baf14b2fe39,
+        type: 3}
+      propertyPath: _isDefaultActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5814740130601418743, guid: ec4329a98f62f814795f4baf14b2fe39,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -819,6 +830,11 @@ PrefabInstance:
     - target: {fileID: 7774441859821237424, guid: ec4329a98f62f814795f4baf14b2fe39,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983952230509821596, guid: ec4329a98f62f814795f4baf14b2fe39,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -140,7 +140,8 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 0.1.0
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 1165068339745187452, guid: 550f71a0bae06d7428abdca985a4c3f2, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -814,7 +815,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: FUSION_WEAVER;FUSION2;XRSHARED_ADDON_AVAILABLE
+    Android: FUSION_WEAVER;FUSION2;XRSHARED_ADDON_AVAILABLE;UNITY_AI_NAVMESH
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

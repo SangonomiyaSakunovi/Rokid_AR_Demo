@@ -431,6 +431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ea19647aa9045438c9a30828ab4051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsHideDefault>k__BackingField: 0
 --- !u!114 &5444009122693942390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,5 +448,4 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 7191867585524222881}
+  NetworkedBehaviours: []

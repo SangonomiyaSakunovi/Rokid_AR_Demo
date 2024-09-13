@@ -7,6 +7,10 @@ namespace Photons
     {
         [SerializeField] private string _playerName = "Sango";
 
+        public PlayerRef LocalPlayerRef { get; set; }
+
+        [HideInInspector]
+        [Networked] public int PeerID { get; set; }
         [HideInInspector]
         [Networked] public string Name { get; private set; }
 
@@ -18,9 +22,15 @@ namespace Photons
             {
                 _inputManager = Runner.GetComponent<InputManager>();
                 _inputManager.LocalPlayer = this;
-                Name = "Sango";
+                Name = PlayerPrefs.GetString("SangoProjects.PhotonPref.Username");
+
                 RPC_SetPlayerName(Name);
             }
+        }
+
+        public override void FixedUpdateNetwork()
+        {
+            
         }
 
         [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]

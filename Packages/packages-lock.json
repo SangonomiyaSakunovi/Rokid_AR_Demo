@@ -64,6 +64,15 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "com.sangoutils.securitychecksystem": {
+      "version": "https://github.com/SangonomiyaSakunovi/com.sangoutils.securitychecksystem.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.textmeshpro": "3.0.6"
+      },
+      "hash": "d0ea84e2dabb2c0d9773dffec363b1a0636fe083"
+    },
     "com.sangoutils.unitycodegenerator": {
       "version": "file:com.sangoutils.unitycodegenerator",
       "depth": 0,

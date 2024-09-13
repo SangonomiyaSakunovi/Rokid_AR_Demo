@@ -1,4 +1,5 @@
 ﻿using Fusion;
+using SangoUtils.UnityDevelopToolKits.Loggers;
 using SceneGameObjects;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,27 +8,37 @@ namespace Photons
 {
     internal partial class ObjectManager : NetworkBehaviour
     {
-        [SerializeField] private GameObject _objEnvsParent;
-        [SerializeField] private GameObject _objNpcsParent; 
+        [SerializeField] private GameObject _objGrabableParent;
 
-        [SerializeField] private GameObject[] _objPrefabs;
+        [SerializeField] private int _objGrabablePrefixCode;
 
-        private Dictionary<string, GameObject> PrefabsDict { get; } = new();
-        private Dictionary<string, EnvObjectBehaviour> EnvObjectBehavioursDict { get; } = new();
+        private Dictionary<int, GameObject> PrefabsDict { get; } = new();
+        private Dictionary<int, GrabableObjectBehaviour> GrabableObjectBehavioursDict { get; } = new();
 
         public override void Spawned()
         {
-            foreach (var item0 in _objPrefabs)
-                PrefabsDict.Add(item0.name, item0);
+            string strIndex = "";
 
-            for (int i = 0; i < _objEnvsParent.transform.childCount; i++)
+            for (int i = 0; i < _objGrabableParent.transform.childCount; i++)
             {
-                var item = _objEnvsParent.transform.GetChild(i);
-                if (item.TryGetComponent<EnvObjectBehaviour>(out var behaviour))
+                var item = _objGrabableParent.transform.GetChild(i);
+                if (item.TryGetComponent<GrabableObjectBehaviour>(out var behaviour))
                 {
-                    behaviour.ObjectID = item.name;
+                    if (i < 10)
+                        strIndex = "00" + i;
+                    else if (i < 100)
+                        strIndex = "0" + i;
+                    else if (i < 1000)
+                        strIndex = i.ToString();
+                    else
+                    {
+                        UnityLogger.Error("[Sango] The index overflow in " + nameof(ObjectManager));
+                        break;
+                    }
+
+                    behaviour.ObjectID = int.Parse(_objGrabablePrefixCode + strIndex);
                     behaviour.GameObject = item.gameObject;
-                    EnvObjectBehavioursDict.Add(behaviour.ObjectID, behaviour);
+                    GrabableObjectBehavioursDict.Add(behaviour.ObjectID, behaviour);
 
                     if (behaviour.IsHideDefault)
                         behaviour.GameObject.SetActive(false);
@@ -35,42 +46,33 @@ namespace Photons
             }
         }
 
-        public void InstantiateObjAsyc<T>(string name, string ID, Vector3 position, Quaternion rotation) where T : IObjBehaviour
+        public void SetActiveObj<T>(int name, bool isActive = true) where T : IObjBehaviour
         {
             if (typeof(T).Name == nameof(IGrabableObjBehaviour))
-                RPC_InstantiateObjAsyc_IGrabableObj(name, ID, position, rotation);
+                RPC_SetActiveObj_IGrabableObj(name, isActive);
         }
 
-        public void SetActiveObj<T>(string name, bool isActive = true) where T : IObjBehaviour
+        public void SyncPose(int name, Vector3 position, Quaternion rotation)
         {
-            if (typeof(T).Name == nameof(IEnvObjBehaviour))
-                RPC_SetActiveObj_IEnvObj(name, isActive);
+            RPC_SyncPose(name, position, rotation);
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
-        private void RPC_SetActiveObj_IEnvObj(string name, bool isActive = true)
+        private void RPC_SetActiveObj_IGrabableObj(int name, bool isActive = true)
         {
-            if (EnvObjectBehavioursDict.TryGetValue(name, out var behaviour0))
+            if (GrabableObjectBehavioursDict.TryGetValue(name, out var behaviour0))
             {
                 behaviour0.gameObject.SetActive(isActive);
             }
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
-        private void RPC_InstantiateObjAsyc_IGrabableObj(string name, string ID, Vector3 position, Quaternion rotation)
+        private void RPC_SyncPose(int name ,Vector3 position, Quaternion rotation)
         {
-            if (HasStateAuthority)
+            if (GrabableObjectBehavioursDict.TryGetValue(name, out var behaviour0))
             {
-                if (PrefabsDict.TryGetValue(name, out var obj))
-                {
-                    NetworkObject networkObj = Runner.Spawn(obj, position, rotation);
-                    if (networkObj.TryGetComponent<GrabableObjectBehaviour>(out var behaviour))
-                    {
-                        networkObj.transform.SetParent(_objNpcsParent.transform);
-                        behaviour.ObjectID = ID;
-                        behaviour.GameObject = networkObj.gameObject;
-                    }
-                }
+                Debug.Log("SyncPoseRPC");
+                behaviour0.SyncPose(position,rotation);
             }
         }
     }

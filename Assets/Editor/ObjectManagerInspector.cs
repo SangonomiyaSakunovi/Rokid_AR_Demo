@@ -15,10 +15,9 @@ namespace Editors
 
         private ObjectManager _manager;
 
-        private SerializedProperty _objEnvsParent;
-        private SerializedProperty _objNpcsParent;
+        private SerializedProperty _objGrabableParent;
 
-        private SerializedProperty _objPrefabs;
+        private SerializedProperty _objGrabablePrefixCode;
 
         private void OnEnable()
         {
@@ -26,20 +25,18 @@ namespace Editors
 
             _manager = (ObjectManager)target;
 
-            _objEnvsParent = serializedObject.FindProperty("_objEnvsParent");
-            _objNpcsParent = serializedObject.FindProperty("_objNpcsParent");
+            _objGrabableParent = serializedObject.FindProperty("_objGrabableParent");
 
-            _objPrefabs = serializedObject.FindProperty("_objPrefabs");
+            _objGrabablePrefixCode = serializedObject.FindProperty("_objGrabablePrefixCode");
         }
 
         public override void OnInspectorGUI()
         {
             EditorGUI.BeginChangeCheck();
 
-            EditorGUILayout.PropertyField(_objEnvsParent);
-            EditorGUILayout.PropertyField(_objNpcsParent);
+            EditorGUILayout.PropertyField(_objGrabableParent);
 
-            EditorGUILayout.PropertyField(_objPrefabs);
+            EditorGUILayout.PropertyField(_objGrabablePrefixCode);
 
             if (EditorGUI.EndChangeCheck())
                 serializedObject.ApplyModifiedProperties();
@@ -84,32 +81,33 @@ namespace Editors
 
         private void AppendPublicField(in CodeWriter codeWriter, in ObjectManager manager)
         {
-            string sourceText;
+            string sourceText = "";
+            string strIndex = "";
 
-            codeWriter.AppendLine("public class ObjEnvNames");
+            codeWriter.AppendLine("public class ObjGrabableNames");
             codeWriter.BeginBlock();
-            for (int i = 0; i < ((GameObject)_objEnvsParent.objectReferenceValue).transform.childCount; i++)
+            for (int i = 0; i < ((GameObject)_objGrabableParent.objectReferenceValue).transform.childCount; i++)
             {
-                var item = ((GameObject)_objEnvsParent.objectReferenceValue).transform.GetChild(i);
-                if (item.TryGetComponent<EnvObjectBehaviour>(out var behaviour))
+                var item = ((GameObject)_objGrabableParent.objectReferenceValue).transform.GetChild(i);
+                if (item.TryGetComponent<GrabableObjectBehaviour>(out var behaviour))
                 {
                     var itemName = Validator.ValidateVariableName(item.name);
-                    sourceText = "public const string " + itemName + " = \"" + item.name + "\";";
+
+                    if (i < 10)
+                        strIndex = "00" + i;
+                    else if (i < 100)
+                        strIndex = "0" + i;
+                    else if (i < 1000)
+                        strIndex = i.ToString();
+                    else
+                    {
+                        Debug.LogError("[Sango] The index overflow in " + nameof(ObjectManager));
+                        break;
+                    }
+
+                    sourceText = "public const int " + itemName + " = " + _objGrabablePrefixCode.intValue + strIndex + ";";
                     codeWriter.AppendLine(sourceText);
                 }
-            }
-            codeWriter.EndBlock();
-
-            codeWriter.AppendLine();
-
-            codeWriter.AppendLine("public class ObjPrefabNames");
-            codeWriter.BeginBlock();
-            for (int i = 0; i < _objPrefabs.arraySize; i++)
-            {
-                var item = _objPrefabs.GetArrayElementAtIndex(i).objectReferenceValue as GameObject;
-                var itemName = Validator.ValidateVariableName(item.name);
-                sourceText = "public const string " + itemName + " = \"" + item.name + "\";";
-                codeWriter.AppendLine(sourceText);
             }
             codeWriter.EndBlock();
         }

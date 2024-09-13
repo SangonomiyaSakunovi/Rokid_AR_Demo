@@ -5,7 +5,7 @@ namespace SceneGameObjects
 {
     internal interface IObjBehaviour
     {
-        string ObjectID { get; set; }
+        int ObjectID { get; set; }
         GameObject GameObject { get; set; }
     }
 

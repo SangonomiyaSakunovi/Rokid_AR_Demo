@@ -14,8 +14,6 @@ namespace PhotonUIPanels
         [SerializeField] protected Button _btn_item1;
         [SerializeField] protected Button _btn_item2;
 
-        private int _index = 0;
-
         private void OnEnable()
         {
             _btn_playtest.onClick.AddListener(delegate { OnBtnClicked(_btn_playtest.name); });
@@ -36,16 +34,11 @@ namespace PhotonUIPanels
         {
             if (name == _btn_playtest.name)
             {
-                //GameLogic.Instance.SetActiveObj<IEnvObjBehaviour>(ObjectManager.ObjEnvNames.GlassCube);
-                GameLogic.Instance.SetActiveObj<IEnvObjBehaviour>(ObjectManager.ObjEnvNames.Ghost_animation_Rokid);
+                GameLogic.Instance.SetActiveObj<IGrabableObjBehaviour>(ObjectManager.ObjGrabableNames.Ghost_animation_Rokid);
             }
             else if (name == _btn_item0.name)
             {
-                Vector3 position = _btn_item0.transform.position;
-                Quaternion rotation = _btn_item0.transform.rotation;
-                string objName = ObjectManager.ObjPrefabNames.StoneSphere;
-                GameLogic.Instance.InstantiateObjAsyc<IGrabableObjBehaviour>(objName, objName + _index, position, rotation);
-                _index++;
+                UnityLogger.Warning("Under development, please stay tuned!");
             }
             else if (name == _btn_item1.name)
             {
