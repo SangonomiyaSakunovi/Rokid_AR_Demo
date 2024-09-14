@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2544bccdc857c1e4299464285b6e8f1a, type: 3}
   m_Name: Game Bebaviour Config
   m_EditorClassIdentifier: 
-  _gameDeviceType: 1
+  _gameDeviceType: 2

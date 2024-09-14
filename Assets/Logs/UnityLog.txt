@@ -1,7 +1,6 @@
-[Log] # 04:07:10--153 ThreadID:1 >> Game Start.
-[Log] # 04:07:24--709 ThreadID:1 >> Connecting to Fusion, please wait.
-[Log] # 04:07:26--535 ThreadID:1 >> Server Connected!
-[Log] # 04:07:26--673 ThreadID:1 >> [SessionInfo: IsValid=True, Name=ZNLSM46B, IsOpen=True, IsVisible=True, Region=cn, PlayerCount=1, MaxPlayers=6, Properties=]
-[Log] # 04:07:30--950 ThreadID:1 >> [SessionInfo: IsValid=True, Name=ZNLSM46B, IsOpen=True, IsVisible=True, Region=cn, PlayerCount=2, MaxPlayers=6, Properties=]
-[Log] # 04:07:42--639 ThreadID:1 >> OnGrabStart
-[Log] # 04:07:49--545 ThreadID:1 >> OnGrabEnd
+[Log] # 06:02:41--159 ThreadID:1 >> Game Start.
+[Log] # 06:02:52--211 ThreadID:1 >> Connecting to Fusion, please wait.
+[Log] # 06:02:54--052 ThreadID:1 >> Server Connected!
+[Log] # 06:02:54--218 ThreadID:1 >> [SessionInfo: IsValid=True, Name=ZNLSM46B, IsOpen=True, IsVisible=True, Region=cn, PlayerCount=1, MaxPlayers=6, Properties=]
+[Log] # 06:03:01--995 ThreadID:1 >> [SessionInfo: IsValid=True, Name=ZNLSM46B, IsOpen=True, IsVisible=True, Region=cn, PlayerCount=2, MaxPlayers=6, Properties=]
+[Log] # 06:05:36--600 ThreadID:1 >> [SessionInfo: IsValid=True, Name=ZNLSM46B, IsOpen=True, IsVisible=True, Region=cn, PlayerCount=2, MaxPlayers=6, Properties=]
